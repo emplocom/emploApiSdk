@@ -12,6 +12,6 @@ namespace EmploApiSDK.Models
         public string BlockUserUrl => EmploUrl + "/" + ApiPath + "/Users/Block";
         public string TokenEndpoint => EmploUrl + "/identity/connect/token";
         public string ImportIntegratedVacationsBalanceDataUrl =>
-            EmploUrl + "/" + ApiPath + "/Vacations/ImportVacationsBalanceData";
+            EmploUrl + "/" + ApiPath + "/IntegratedVacations/ImportVacationsBalanceData";
     }
 }

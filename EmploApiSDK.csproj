@@ -53,6 +53,7 @@
     <Compile Include="Client\HttpClientProvider.cs" />
     <Compile Include="Logger\BaseLogger.cs" />
     <Compile Include="Logger\ConsoleLogger.cs" />
+    <Compile Include="Logger\ExceptionLoggingUtils.cs" />
     <Compile Include="Logger\FileLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\LoggerFactory.cs" />

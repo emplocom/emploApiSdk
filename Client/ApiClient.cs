@@ -49,7 +49,6 @@ namespace EmploApiSDK
                 using(var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
                 {
                     var client = HttpClientProvider.HttpClient;
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _token.AccessToken);
 
                     var uri = new Uri(url);
                     _logger.WriteLine("Calling API " + uri);
@@ -129,7 +128,10 @@ namespace EmploApiSDK
 
         private async Task<HttpResponseMessage> PostAsync(HttpClient client, Uri uri, StringContent stringContent)
         {
-            return await client.PostAsync(uri, stringContent);
+            HttpRequestMessage message = new HttpRequestMessage() {RequestUri = uri, Content = stringContent, Method = HttpMethod.Post };
+            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
+
+            return await client.SendAsync(message);
         }
 
         private void EnsureValidToken()

@@ -8,7 +8,6 @@ namespace EmploApiSDK.Models
 {
     public class ImportIntegratedVacationsBalanceDataRequestModel
     {
-        public int ExternalSystemId;
         public List<IntegratedVacationsBalanceDto> BalanceList;
     }
 
