@@ -3,16 +3,14 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using EmploApiSDK.Logger;
 using IdentityModel;
 using IdentityModel.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using EmploApiSDK.Logger;
-using EmploApiSDK.Models;
-using System.Threading.Tasks;
-using CogisoftConnector.Logic;
 
-namespace EmploApiSDK
+namespace EmploApiSDK.Client
 {
     public class ApiClient
     {

@@ -1,8 +1,7 @@
-using EmploApiSDK.Models;
 using EmploApiSDK.Logger;
 using IdentityModel.Client;
 
-namespace EmploApiSDK
+namespace EmploApiSDK.Client
 {
     internal class AuthorizationManager
     {

@@ -1,4 +1,4 @@
-namespace EmploApiSDK.Models
+namespace EmploApiSDK.Client
 {
     public class ApiConfiguration
     {
