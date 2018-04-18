@@ -26,17 +26,22 @@ namespace EmploApiSDK.Client
             _authorizationManager = new AuthorizationManager(logger, apiConfiguration);
         }
 
+        public T SendGet<T>(string url)
+        {
+            return Send<T>(string.Empty, url, HttpMethod.Get).Result;
+        }
+
         public T SendPost<T>(string json, string url)
         {
-            return Send<T>(json, url).Result;
+            return Send<T>(json, url, HttpMethod.Post).Result;
         }
 
         public async Task<T> SendPostAsync<T>(string json, string url)
         {
-            return await Send<T>(json, url);
+            return await Send<T>(json, url, HttpMethod.Post);
         }
 
-        private async Task<T> Send<T>(string json, string url)
+        private async Task<T> Send<T>(string json, string url, HttpMethod httpMethod)
         {
             EnsureValidToken();
             _logger.WriteLine("Token: " + _token.Json);
@@ -52,12 +57,28 @@ namespace EmploApiSDK.Client
                     _logger.WriteLine("Calling API " + uri);
                     _logger.WriteLine("Request content: " + json);
 
-                    response = await PostAsync(client, uri, stringContent);
+                    if (httpMethod == HttpMethod.Get)
+                    {
+                        //response = await GetAsync(client, uri);
+                        response = Get(client, uri);
+                    }
+                    else
+                    {
+                        response = await PostAsync(client, uri, stringContent);
+                    }
+
                     var result = await ReadAsStringAsync(response.Content);
 
                     if(response.IsSuccessStatusCode)
                     {
-                        return JsonConvert.DeserializeObject<T>(result);
+                        if (result != null && !result.Equals(string.Empty))
+                        {
+                            return JsonConvert.DeserializeObject<T>(result);
+                        }
+                        else
+                        {
+                            return default(T);
+                        }
                     }
                     else
                     {
@@ -122,6 +143,22 @@ namespace EmploApiSDK.Client
         private async Task<string> ReadAsStringAsync(HttpContent content)
         {
             return await content.ReadAsStringAsync();
+        }
+
+        private HttpResponseMessage Get(HttpClient client, Uri uri)
+        {
+            HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Method = HttpMethod.Get };
+            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
+
+            return client.SendAsync(message).Result;
+        }
+
+        private async Task<HttpResponseMessage> GetAsync(HttpClient client, Uri uri)
+        {
+            HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Method = HttpMethod.Get };
+            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
+
+            return await client.SendAsync(message);
         }
 
         private async Task<HttpResponseMessage> PostAsync(HttpClient client, Uri uri, StringContent stringContent)
