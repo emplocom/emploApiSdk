@@ -64,7 +64,8 @@ namespace EmploApiSDK.Client
                     }
                     else
                     {
-                        response = await PostAsync(client, uri, stringContent);
+                        //response = await PostAsync(client, uri, stringContent);
+                        response = Post(client, uri, stringContent);
                     }
 
                     var result = await ReadAsStringAsync(response.Content);
@@ -159,6 +160,14 @@ namespace EmploApiSDK.Client
             message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
 
             return await client.SendAsync(message);
+        }
+
+        private HttpResponseMessage Post(HttpClient client, Uri uri, StringContent stringContent)
+        {
+            HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Content = stringContent, Method = HttpMethod.Post };
+            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
+
+            return client.SendAsync(message).Result;
         }
 
         private async Task<HttpResponseMessage> PostAsync(HttpClient client, Uri uri, StringContent stringContent)
