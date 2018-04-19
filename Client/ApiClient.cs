@@ -31,6 +31,11 @@ namespace EmploApiSDK.Client
             return Send<T>(string.Empty, url, HttpMethod.Get).Result;
         }
 
+        public async Task<T> SendGetAsync<T>(string url)
+        {
+            return await Send<T>(string.Empty, url, HttpMethod.Get);
+        }
+
         public T SendPost<T>(string json, string url)
         {
             return Send<T>(json, url, HttpMethod.Post).Result;
@@ -59,13 +64,11 @@ namespace EmploApiSDK.Client
 
                     if (httpMethod == HttpMethod.Get)
                     {
-                        //response = await GetAsync(client, uri);
-                        response = Get(client, uri);
+                        response = await GetAsync(client, uri);
                     }
                     else
                     {
-                        //response = await PostAsync(client, uri, stringContent);
-                        response = Post(client, uri, stringContent);
+                        response = await PostAsync(client, uri, stringContent);
                     }
 
                     var result = await ReadAsStringAsync(response.Content);
@@ -146,28 +149,12 @@ namespace EmploApiSDK.Client
             return await content.ReadAsStringAsync();
         }
 
-        private HttpResponseMessage Get(HttpClient client, Uri uri)
-        {
-            HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Method = HttpMethod.Get };
-            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
-
-            return client.SendAsync(message).Result;
-        }
-
         private async Task<HttpResponseMessage> GetAsync(HttpClient client, Uri uri)
         {
             HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Method = HttpMethod.Get };
             message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
 
             return await client.SendAsync(message);
-        }
-
-        private HttpResponseMessage Post(HttpClient client, Uri uri, StringContent stringContent)
-        {
-            HttpRequestMessage message = new HttpRequestMessage() { RequestUri = uri, Content = stringContent, Method = HttpMethod.Post };
-            message.Headers.Add("Authorization", "Bearer " + _token.AccessToken);
-
-            return client.SendAsync(message).Result;
         }
 
         private async Task<HttpResponseMessage> PostAsync(HttpClient client, Uri uri, StringContent stringContent)
