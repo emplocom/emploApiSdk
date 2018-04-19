@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace EmploApiSDK.Logger
 {
-    public interface ILogger
+    public enum LogLevelEnum
     {
-        void WriteLine(string line);
-        void WriteLine(string message, LogLevelEnum level);
+        Information = 1,
+        Warning = 2,
+        Error = 3,
+        Fatal = 4
     }
 }
