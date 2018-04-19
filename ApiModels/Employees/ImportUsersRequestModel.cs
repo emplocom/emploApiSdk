@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Configuration;
 
-namespace EmploApiSDK.Models
+namespace EmploApiSDK.ApiModels.Employees
 {
     public class ImportUsersRequestModel
     {

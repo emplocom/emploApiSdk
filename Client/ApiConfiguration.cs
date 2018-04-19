@@ -1,4 +1,4 @@
-namespace EmploApiSDK.Models
+namespace EmploApiSDK.Client
 {
     public class ApiConfiguration
     {
@@ -10,6 +10,7 @@ namespace EmploApiSDK.Models
         public string ImportUsersUrl => EmploUrl + "/" + ApiPath + "/Users/Import";
         public string FinishImportUrl => EmploUrl + "/" + ApiPath + "/Users/FinishImport";
         public string BlockUserUrl => EmploUrl + "/" + ApiPath + "/Users/Block";
+        public string CheckUserHasAccessUrl => EmploUrl + "/" + ApiPath + "/Users/HasAccess";
         public string TokenEndpoint => EmploUrl + "/identity/connect/token";
         public string ImportIntegratedVacationsBalanceDataUrl =>
             EmploUrl + "/" + ApiPath + "/IntegratedVacations/ImportVacationsBalanceData";

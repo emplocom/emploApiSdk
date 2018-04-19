@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EmploApiSDK.Models
+namespace EmploApiSDK.ApiModels.Employees
 {
     public enum ImportStatusCode
     {
