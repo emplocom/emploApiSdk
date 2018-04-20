@@ -48,7 +48,7 @@ namespace EmploApiSDK.Logic.EmployeeImport
                 var importValidationSummary = await _apiClient.SendPostAsync<ImportUsersResponseModel>(serializedData, _apiConfiguration.ImportUsersUrl);
                 if (importValidationSummary.ImportStatusCode != ImportStatusCode.Ok)
                 {
-                    _logger.WriteLine("Import action returned error status: " + importValidationSummary.ImportStatusCode);
+                    _logger.WriteLine("Import action returned error status: " + importValidationSummary.ImportStatusCode, LogLevelEnum.Error);
                     return -1;
                 }
                 importUsersRequestModel.ImportId = importValidationSummary.ImportId;
@@ -64,7 +64,7 @@ namespace EmploApiSDK.Logic.EmployeeImport
                 var finishImportResponse = await _apiClient.SendPostAsync<FinishImportResponseModel>(serializedData, _apiConfiguration.FinishImportUrl);
                 if (finishImportResponse.ImportStatusCode != ImportStatusCode.Ok)
                 {
-                    _logger.WriteLine("FinishImport action returned error status: " + finishImportResponse.ImportStatusCode);
+                    _logger.WriteLine("FinishImport action returned error status: " + finishImportResponse.ImportStatusCode, LogLevelEnum.Error);
                     return -1;
                 }
                 else
@@ -81,7 +81,7 @@ namespace EmploApiSDK.Logic.EmployeeImport
                         {
                             if (message.IsError)
                             {
-                                _logger.WriteLine(String.Format("Unit update error: {0}", message.Message));
+                                _logger.WriteLine(String.Format("Unit update error: {0}", message.Message), LogLevelEnum.Error);
                             }
                             else
                             {
@@ -126,7 +126,7 @@ namespace EmploApiSDK.Logic.EmployeeImport
                 if (result.StatusCode != ImportStatuses.Ok)
                 {
                     string error = String.Format("Status: {0}, ErrorColumns: {1}, Message: {2}", result.StatusCode, String.Join(",", result.ErrorColumns), result.Message);
-                    _logger.WriteLine(String.Format("{0} ERROR - {1}", employeeHeader, error));
+                    _logger.WriteLine(String.Format("{0} ERROR - {1}", employeeHeader, error), LogLevelEnum.Error);
                     continue;
                 }
 

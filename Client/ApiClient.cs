@@ -97,7 +97,7 @@ namespace EmploApiSDK.Client
             catch(WebException ex)
             {
                 var code = ((HttpWebResponse)ex.Response).StatusCode;
-                _logger.WriteLine(String.Format("WebException, Response: {0} {1}", (int)code, code));
+                _logger.WriteLine(String.Format("WebException, Response: {0} {1}", (int)code, code), LogLevelEnum.Error);
 
                 var responseStream = ex.Response.GetResponseStream();
                 if(responseStream != null)
@@ -105,39 +105,39 @@ namespace EmploApiSDK.Client
                     using(var sr = new StreamReader(responseStream))
                     {
                         var error = sr.ReadToEnd();
-                        _logger.WriteLine(String.Format("Http status code: {0}, response: {1}", response != null ? response.StatusCode.ToString() : "?", error));
+                        _logger.WriteLine(String.Format("Http status code: {0}, response: {1}", response != null ? response.StatusCode.ToString() : "?", error), LogLevelEnum.Error);
                     }
                 }
                 else
                 {
-                    _logger.WriteLine(ex.ToString());
+                    _logger.WriteLine(ex.ToString(), LogLevelEnum.Error);
                 }
             }
             catch(TaskCanceledException ex)
             {
-                _logger.WriteLine("Possible timeout!");
+                _logger.WriteLine("Possible timeout!", LogLevelEnum.Error);
                 if(response != null)
                 {
-                    _logger.WriteLine("Response StatusCode: " + response.StatusCode);
+                    _logger.WriteLine("Response StatusCode: " + response.StatusCode, LogLevelEnum.Error);
                     if(!String.IsNullOrEmpty(response.ReasonPhrase))
-                        _logger.WriteLine("Response ReasonPhrase: " + response.ReasonPhrase);
+                        _logger.WriteLine("Response ReasonPhrase: " + response.ReasonPhrase, LogLevelEnum.Error);
                     if(response.Content != null)
-                        _logger.WriteLine("Response Content: " + await ReadAsStringAsync(response.Content));
+                        _logger.WriteLine("Response Content: " + await ReadAsStringAsync(response.Content), LogLevelEnum.Error);
                 }
-                _logger.WriteLine("Error details: " + ex);
+                _logger.WriteLine("Error details: " + ex, LogLevelEnum.Error);
             }
             catch(Exception ex)
             {
-                _logger.WriteLine("Unexpected error occured!");
+                _logger.WriteLine("Unexpected error occured!", LogLevelEnum.Error);
                 if(response != null)
                 {
-                    _logger.WriteLine("Response StatusCode: " + response.StatusCode);
+                    _logger.WriteLine("Response StatusCode: " + response.StatusCode, LogLevelEnum.Error);
                     if(!String.IsNullOrEmpty(response.ReasonPhrase))
-                        _logger.WriteLine("Response ReasonPhrase: " + response.ReasonPhrase);
+                        _logger.WriteLine("Response ReasonPhrase: " + response.ReasonPhrase, LogLevelEnum.Error);
                     if(response.Content != null)
-                        _logger.WriteLine("Response Content: " + await ReadAsStringAsync(response.Content));
+                        _logger.WriteLine("Response Content: " + await ReadAsStringAsync(response.Content), LogLevelEnum.Error);
                 }
-                _logger.WriteLine("Error details: " + ex);
+                _logger.WriteLine("Error details: " + ex, LogLevelEnum.Error);
             }
 
             Environment.Exit(-1);
@@ -193,7 +193,7 @@ namespace EmploApiSDK.Client
 
             if (_token.AccessToken == null)
             {
-                _logger.WriteLine("Login error:" + _token.Json);
+                _logger.WriteLine("Login error:" + _token.Json, LogLevelEnum.Error);
                 Environment.Exit(-1);
             }
             else

@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 using Serilog;
 
 namespace EmploApiSDK.Logger
 {
-    class SerilogRollingFileLogger : ILogger
+    class SerilogLogger : ILogger
     {
+        private readonly string _prefix = $"Operation ID: {Guid.NewGuid().ToString()}";
+
         public void WriteLine(string message, LogLevelEnum level)
         {
+            message = $"{_prefix}, Message: {message}";
+
             switch (level)
             {
                 case LogLevelEnum.Information:
