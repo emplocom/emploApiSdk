@@ -37,6 +37,18 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.1.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -44,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Logger\LogLevelEnum.cs" />
+    <Compile Include="Logger\SerilogLogger.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMapping.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingElement.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingSection.cs" />
@@ -51,13 +65,9 @@
     <Compile Include="Client\HttpClientProvider.cs" />
     <Compile Include="Logic\EmployeeImport\ImportLogic.cs" />
     <Compile Include="Logic\EmployeeImport\PropertyMapping.cs" />
-    <Compile Include="Logger\BaseLogger.cs" />
-    <Compile Include="Logger\ConsoleLogger.cs" />
     <Compile Include="Logger\ExceptionLoggingUtils.cs" />
-    <Compile Include="Logger\FileLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\LoggerFactory.cs" />
-    <Compile Include="Logger\LogOutput.cs" />
     <Compile Include="Client\ApiConfiguration.cs" />
     <Compile Include="Client\AuthorizationManager.cs" />
     <Compile Include="ApiModels\Employees\FinishImportRequestModel.cs" />

@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.IO;
+using Serilog;
 
 namespace EmploApiSDK.Logger
 {
@@ -10,26 +11,13 @@ namespace EmploApiSDK.Logger
 
         public static ILogger CreateLogger(string[] args)
         {
-            var path = ConfigurationManager.AppSettings["LogFilePath"];
+            var log = new LoggerConfiguration()
+                .ReadFrom.AppSettings()
+                .CreateLogger();
 
-            if (ConfigurationManager.AppSettings["LogOutput"] == LogOutput.File.ToString()
-                && !String.IsNullOrWhiteSpace(path))
-            {
-                if (!path.EndsWith("\\"))
-                    path += "\\";
+            Log.Logger = log;
 
-                CreateIfMissing(path);
-                return Instance = new FileLogger(path + "EmploImportLog-" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
-            }
-
-            return Instance = new ConsoleLogger();
-        }
-
-        private static void CreateIfMissing(string path)
-        {
-            bool folderExists = Directory.Exists(path);
-            if (!folderExists)
-                Directory.CreateDirectory(path);
+            return Instance = new SerilogLogger();
         }
     }
 }
