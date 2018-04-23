@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
     <Compile Include="Logger\SerilogLogger.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMapping.cs" />
