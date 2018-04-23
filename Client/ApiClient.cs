@@ -149,8 +149,6 @@ namespace EmploApiSDK.Client
             }
 
             throw new EmploApiClientFatalException($"A fatal error has occurred during emplo API request processing.");
-            //Environment.Exit(-1);
-            //return default(T);
         }
 
         private async Task<string> ReadAsStringAsync(HttpContent content)
@@ -204,7 +202,6 @@ namespace EmploApiSDK.Client
             {
                 _logger.WriteLine("Login error:" + _token.Json, LogLevelEnum.Error);
                 throw new EmploApiClientFatalException($"A fatal error has occurred during emplo API LogIn.");
-                //Environment.Exit(-1);
             }
             else
             {

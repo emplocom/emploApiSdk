@@ -12,17 +12,15 @@ namespace EmploApiSDK.Logic.EmployeeImport
         ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error, requiring request abortion, has occurred </exception>
         protected BaseImportConfiguration(ILogger logger)
         {
-            var configSection = ConfigurationManager.GetSection(AttributeMappingSection.SectionName) as AttributeMappingSection;
-            if (configSection == null)
+            if (!(ConfigurationManager.GetSection(AttributeMappingSection.SectionName) is AttributeMappingSection configSection))
             {
-                logger.WriteLine(String.Format("Attributes mapping in {0} is empty", AttributeMappingSection.SectionName));
+                logger.WriteLine($"Attributes mapping in {AttributeMappingSection.SectionName} is empty");
                 throw new EmploApiClientFatalException($"A fatal error has occurred while reading configuration. Check the logs for details.");
-                //Environment.Exit(-1);
             }
 
             foreach (AttributeMappingElement e in configSection.Instances)
             {
-                if (!String.IsNullOrEmpty(e.Value))
+                if (!string.IsNullOrEmpty(e.Value))
                 {
                     PropertyMappings.Add(new PropertyMapping(e.Name, e.Value));
                 }
