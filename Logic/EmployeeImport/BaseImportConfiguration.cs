@@ -9,18 +9,18 @@ namespace EmploApiSDK.Logic.EmployeeImport
     {
         public List<PropertyMapping> PropertyMappings { get; private set; } = new List<PropertyMapping>();
 
-        public BaseImportConfiguration(ILogger logger)
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error, requiring request abortion, has occurred </exception>
+        protected BaseImportConfiguration(ILogger logger)
         {
-            var configSection = ConfigurationManager.GetSection(AttributeMappingSection.SectionName) as AttributeMappingSection;
-            if (configSection == null)
+            if (!(ConfigurationManager.GetSection(AttributeMappingSection.SectionName) is AttributeMappingSection configSection))
             {
-                logger.WriteLine(String.Format("Attributes mapping in {0} is empty", AttributeMappingSection.SectionName));
-                Environment.Exit(-1);
+                logger.WriteLine($"Attributes mapping in {AttributeMappingSection.SectionName} is empty", LogLevelEnum.Error);
+                throw new EmploApiClientFatalException($"A fatal error has occurred while reading configuration.");
             }
 
             foreach (AttributeMappingElement e in configSection.Instances)
             {
-                if (!String.IsNullOrEmpty(e.Value))
+                if (!string.IsNullOrEmpty(e.Value))
                 {
                     PropertyMappings.Add(new PropertyMapping(e.Name, e.Value));
                 }

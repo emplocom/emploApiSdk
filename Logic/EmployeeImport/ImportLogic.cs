@@ -33,68 +33,92 @@ namespace EmploApiSDK.Logic.EmployeeImport
 
         public async Task<int> ImportEmployees(ImportUsersRequestModel importUsersRequestModel)
         {
-            int chunkSize = GetChunkSize();
-            _logger.WriteLine(String.Format("Sending employee data to emplo (in chunks in size of {0})", chunkSize));
-
-            // first, send data without superiors
-            foreach (var chunk in Chunk(importUsersRequestModel.Rows, chunkSize))
+            try
             {
-                var importUsersRequestModelChunk = new ImportUsersRequestModel(importUsersRequestModel.Mode, importUsersRequestModel.RequireRegistrationForNewEmployees)
-                {
-                    ImportId = importUsersRequestModel.ImportId,
-                    Rows = chunk.ToList()
-                };
-                var serializedData = JsonConvert.SerializeObject(importUsersRequestModelChunk);
-                var importValidationSummary = await _apiClient.SendPostAsync<ImportUsersResponseModel>(serializedData, _apiConfiguration.ImportUsersUrl);
-                if (importValidationSummary.ImportStatusCode != ImportStatusCode.Ok)
-                {
-                    _logger.WriteLine("Import action returned error status: " + importValidationSummary.ImportStatusCode, LogLevelEnum.Error);
-                    return -1;
-                }
-                importUsersRequestModel.ImportId = importValidationSummary.ImportId;
-                SaveImportValidationSummaryLog(importValidationSummary);
-            }
+                int chunkSize = GetChunkSize();
+                _logger.WriteLine(String.Format("Sending employee data to emplo (in chunks in size of {0})",
+                    chunkSize));
 
-            if (importUsersRequestModel.Rows.Any())
-            {
-                _logger.WriteLine("Finishing import...");
-                FinishImportRequestModel requestModel = new FinishImportRequestModel(ConfigurationManager.AppSettings["BlockSkippedUsers"]);
-                requestModel.ImportId = importUsersRequestModel.ImportId;
-                var serializedData = JsonConvert.SerializeObject(requestModel);
-                var finishImportResponse = await _apiClient.SendPostAsync<FinishImportResponseModel>(serializedData, _apiConfiguration.FinishImportUrl);
-                if (finishImportResponse.ImportStatusCode != ImportStatusCode.Ok)
+                // first, send data without superiors
+                foreach (var chunk in Chunk(importUsersRequestModel.Rows, chunkSize))
                 {
-                    _logger.WriteLine("FinishImport action returned error status: " + finishImportResponse.ImportStatusCode, LogLevelEnum.Error);
-                    return -1;
-                }
-                else
-                {
-                    if (finishImportResponse.BlockedUserIds != null && finishImportResponse.BlockedUserIds.Any())
+                    var importUsersRequestModelChunk = new ImportUsersRequestModel(importUsersRequestModel.Mode,
+                        importUsersRequestModel.RequireRegistrationForNewEmployees)
                     {
-                        _logger.WriteLine("Blocked user id's: " + String.Join(", ", finishImportResponse.BlockedUserIds));
+                        ImportId = importUsersRequestModel.ImportId,
+                        Rows = chunk.ToList()
+                    };
+                    var serializedData = JsonConvert.SerializeObject(importUsersRequestModelChunk);
+                    var importValidationSummary =
+                        await _apiClient.SendPostAsync<ImportUsersResponseModel>(serializedData,
+                            _apiConfiguration.ImportUsersUrl);
+                    if (importValidationSummary.ImportStatusCode != ImportStatusCode.Ok)
+                    {
+                        _logger.WriteLine(
+                            "Import action returned error status: " + importValidationSummary.ImportStatusCode,
+                            LogLevelEnum.Error);
+                        return -1;
                     }
+                    importUsersRequestModel.ImportId = importValidationSummary.ImportId;
+                    SaveImportValidationSummaryLog(importValidationSummary);
+                }
 
-                    if (finishImportResponse.UpdateUnitResults != null && finishImportResponse.UpdateUnitResults.Any())
+                if (importUsersRequestModel.Rows.Any())
+                {
+                    _logger.WriteLine("Finishing import...");
+                    FinishImportRequestModel requestModel =
+                        new FinishImportRequestModel(ConfigurationManager.AppSettings["BlockSkippedUsers"]);
+                    requestModel.ImportId = importUsersRequestModel.ImportId;
+                    var serializedData = JsonConvert.SerializeObject(requestModel);
+                    var finishImportResponse =
+                        await _apiClient.SendPostAsync<FinishImportResponseModel>(serializedData,
+                            _apiConfiguration.FinishImportUrl);
+                    if (finishImportResponse.ImportStatusCode != ImportStatusCode.Ok)
                     {
-                        _logger.WriteLine("Units tree was updated:");
-                        foreach (var message in finishImportResponse.UpdateUnitResults)
+                        _logger.WriteLine(
+                            "FinishImport action returned error status: " + finishImportResponse.ImportStatusCode,
+                            LogLevelEnum.Error);
+                        return -1;
+                    }
+                    else
+                    {
+                        if (finishImportResponse.BlockedUserIds != null && finishImportResponse.BlockedUserIds.Any())
                         {
-                            if (message.IsError)
+                            _logger.WriteLine("Blocked user id's: " +
+                                              String.Join(", ", finishImportResponse.BlockedUserIds));
+                        }
+
+                        if (finishImportResponse.UpdateUnitResults != null &&
+                            finishImportResponse.UpdateUnitResults.Any())
+                        {
+                            _logger.WriteLine("Units tree was updated:");
+                            foreach (var message in finishImportResponse.UpdateUnitResults)
                             {
-                                _logger.WriteLine(String.Format("Unit update error: {0}", message.Message), LogLevelEnum.Error);
-                            }
-                            else
-                            {
-                                _logger.WriteLine(String.Format("Unit updated: unit {0} was updated, old parent={1}, new parent={2}, message: {3}",
-                                    message.UpdatedUnitId, message.OldParentId, message.NewParentId, message.Message));
+                                if (message.IsError)
+                                {
+                                    _logger.WriteLine(String.Format("Unit update error: {0}", message.Message),
+                                        LogLevelEnum.Error);
+                                }
+                                else
+                                {
+                                    _logger.WriteLine(String.Format(
+                                        "Unit updated: unit {0} was updated, old parent={1}, new parent={2}, message: {3}",
+                                        message.UpdatedUnitId, message.OldParentId, message.NewParentId,
+                                        message.Message));
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            _logger.WriteLine("Import has finished successfully");
-            return 0;
+                _logger.WriteLine("Import has finished successfully");
+                return 0;
+            }
+            catch (EmploApiClientFatalException e)
+            {
+                _logger.WriteLine(ExceptionLoggingUtils.ExceptionAsString(e), LogLevelEnum.Error);
+                return -1;
+            }
         }
 
         private IEnumerable<IEnumerable<T>> Chunk<T>(IEnumerable<T> source, int chunksize)

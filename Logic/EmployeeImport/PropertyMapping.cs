@@ -2,13 +2,13 @@
 {
     public class PropertyMapping
     {
-        public PropertyMapping(string emploPropertyName, string headerName)
+        public PropertyMapping(string emploPropertyName, string externalPropertyName)
         {
             EmploPropertyName = emploPropertyName;
-            FileHeaderName = headerName;
+            ExternalPropertyName = externalPropertyName;
         }
 
         public string EmploPropertyName { get; private set; }
-        public string FileHeaderName { get; private set; }
+        public string ExternalPropertyName { get; private set; }
     }
 }

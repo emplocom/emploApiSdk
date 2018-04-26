@@ -26,26 +26,31 @@ namespace EmploApiSDK.Client
             _authorizationManager = new AuthorizationManager(logger, apiConfiguration);
         }
 
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public T SendGet<T>(string url)
         {
             return Send<T>(string.Empty, url, HttpMethod.Get).Result;
         }
 
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public async Task<T> SendGetAsync<T>(string url)
         {
             return await Send<T>(string.Empty, url, HttpMethod.Get);
         }
 
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public T SendPost<T>(string json, string url)
         {
             return Send<T>(json, url, HttpMethod.Post).Result;
         }
 
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public async Task<T> SendPostAsync<T>(string json, string url)
         {
             return await Send<T>(json, url, HttpMethod.Post);
         }
 
+        ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error, requiring request abortion, has occurred </exception>
         private async Task<T> Send<T>(string json, string url, HttpMethod httpMethod)
         {
             EnsureValidToken();
@@ -77,16 +82,18 @@ namespace EmploApiSDK.Client
                     {
                         if (result != null && !result.Equals(string.Empty))
                         {
+                            _logger.WriteLine($"API call successful, http response code: {(int)response.StatusCode}, http response content: {result}");
                             return JsonConvert.DeserializeObject<T>(result);
                         }
                         else
                         {
+                            _logger.WriteLine($"API call successful, http response code: {(int)response.StatusCode}");
                             return default(T);
                         }
                     }
                     else
                     {
-                        _logger.WriteLine(String.Format("Response: {0} {1} {2}", (int)response.StatusCode, response.StatusCode, response.ReasonPhrase));
+                        _logger.WriteLine(String.Format("Response: {0} {1} {2}", (int)response.StatusCode, response.StatusCode, response.ReasonPhrase), LogLevelEnum.Error);
                         if(response.Content != null)
                         {
                             _logger.WriteLine(await ReadAsStringAsync(response.Content));
@@ -97,7 +104,7 @@ namespace EmploApiSDK.Client
             catch(WebException ex)
             {
                 var code = ((HttpWebResponse)ex.Response).StatusCode;
-                _logger.WriteLine(String.Format("WebException, Response: {0} {1}", (int)code, code), LogLevelEnum.Error);
+                _logger.WriteLine($"WebException, Response: {(int) code} {code}", LogLevelEnum.Error);
 
                 var responseStream = ex.Response.GetResponseStream();
                 if(responseStream != null)
@@ -105,7 +112,8 @@ namespace EmploApiSDK.Client
                     using(var sr = new StreamReader(responseStream))
                     {
                         var error = sr.ReadToEnd();
-                        _logger.WriteLine(String.Format("Http status code: {0}, response: {1}", response != null ? response.StatusCode.ToString() : "?", error), LogLevelEnum.Error);
+                        _logger.WriteLine(
+                            $"Http status code: {(response != null ? response.StatusCode.ToString() : "?")}, response: {error}", LogLevelEnum.Error);
                     }
                 }
                 else
@@ -140,8 +148,7 @@ namespace EmploApiSDK.Client
                 _logger.WriteLine("Error details: " + ex, LogLevelEnum.Error);
             }
 
-            Environment.Exit(-1);
-            return default(T);
+            throw new EmploApiClientFatalException($"A fatal error has occurred during emplo API request processing.");
         }
 
         private async Task<string> ReadAsStringAsync(HttpContent content)
@@ -194,7 +201,7 @@ namespace EmploApiSDK.Client
             if (_token.AccessToken == null)
             {
                 _logger.WriteLine("Login error:" + _token.Json, LogLevelEnum.Error);
-                Environment.Exit(-1);
+                throw new EmploApiClientFatalException($"A fatal error has occurred during emplo API LogIn.");
             }
             else
             {
