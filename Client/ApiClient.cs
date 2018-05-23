@@ -54,7 +54,6 @@ namespace EmploApiSDK.Client
         private async Task<T> Send<T>(string json, string url, HttpMethod httpMethod)
         {
             EnsureValidToken();
-            _logger.WriteLine("Token: " + _token.Json);
 
             HttpResponseMessage response = null;
             try
