@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EmploApiSDK.ApiModels.IntegratedVacations
+namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationBalances
 {
     public enum ImportVacationDataStatusCode
     {

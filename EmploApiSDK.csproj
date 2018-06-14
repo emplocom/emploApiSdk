@@ -55,6 +55,13 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\OperationTypeEnum.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationCreatedWebhookModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationEditedWebhookModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusChangedWebhookModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusEnum.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\CreatedObjectResponseEmploModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\ErrorMessageResponseEmploModel.cs" />
     <Compile Include="Client\ApiClient.cs" />
     <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
@@ -73,8 +80,8 @@
     <Compile Include="Client\AuthorizationManager.cs" />
     <Compile Include="ApiModels\Employees\FinishImportRequestModel.cs" />
     <Compile Include="ApiModels\Employees\FinishImportResponseModel.cs" />
-    <Compile Include="ApiModels\IntegratedVacations\ImportIntegratedVacationsBalanceDataRequestModel.cs" />
-    <Compile Include="ApiModels\IntegratedVacations\ImportIntegratedVacationsBalanceDataResponseModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationBalances\ImportIntegratedVacationsBalanceDataRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationBalances\ImportIntegratedVacationsBalanceDataResponseModel.cs" />
     <Compile Include="ApiModels\Employees\ImportUsersRequestModel.cs" />
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
@@ -85,5 +92,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
