@@ -55,6 +55,8 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\VacationValidationRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\VacationValidationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\OperationTypeEnum.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationCreatedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationEditedWebhookModel.cs" />
