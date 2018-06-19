@@ -20,15 +20,6 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationValidation
         public string ExternalVacationTypeId { get; set; }
 
         /// <summary>
-        /// Vacation request status depend on acceptance flow configured for this request type 
-        /// and can contain following statuses:
-        /// ForApproval = 1, when request needs acceptance
-        /// Accepted = 2, when request was automatically accepted
-        /// Executed = 4, when request was automatically accepted and executed
-        /// </summary>
-        public VacationStatusEnum Status { get; set; }
-
-        /// <summary>
         /// Vacation start date
         /// </summary>
         public DateTime Since { get; set; }

@@ -14,8 +14,13 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationValidation
         public bool RequestIsValid;
 
         /// <summary>
+        /// Message detailing validation results
+        /// </summary>
+        public string Message;
+
+        /// <summary>
         /// Optional additional information sent back to emplo along with validation result
         /// </summary>
-        public List<string> ValidationMessageCollection = new List<string>();
+        public List<string> AdditionalMessagesCollection = new List<string>();
     }
 }
