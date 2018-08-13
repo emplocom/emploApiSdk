@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,11 +56,14 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\VacationValidationRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\VacationValidationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\OperationTypeEnum.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationCreatedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationEditedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusChangedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusEnum.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationWebhookErrorRecoveryModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\CreatedObjectResponseEmploModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\ErrorMessageResponseEmploModel.cs" />
     <Compile Include="Client\ApiClient.cs" />

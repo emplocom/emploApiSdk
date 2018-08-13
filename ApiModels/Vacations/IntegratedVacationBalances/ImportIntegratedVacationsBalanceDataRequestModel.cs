@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationBalances
 {
     public class ImportIntegratedVacationsBalanceDataRequestModel
     {
+        public DateTime SynchronizationTime;
         public List<IntegratedVacationsBalanceDto> BalanceList;
     }
 

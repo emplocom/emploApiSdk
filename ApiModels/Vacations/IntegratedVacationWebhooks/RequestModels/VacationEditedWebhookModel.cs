@@ -41,8 +41,7 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         public DateTime Until { get; set; }
 
         /// <summary>
-        /// Number of days used by this vacation request (after subtracting all free days from 
-        /// assigned free days calendar id present)
+        /// Number of days used by this vacation request
         /// </summary>
         public decimal Duration { get; set; }
 
