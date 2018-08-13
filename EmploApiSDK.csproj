@@ -62,6 +62,7 @@
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationEditedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusChangedWebhookModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationStatusEnum.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationWebhookErrorRecoveryModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\CreatedObjectResponseEmploModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\ErrorMessageResponseEmploModel.cs" />
     <Compile Include="Client\ApiClient.cs" />
