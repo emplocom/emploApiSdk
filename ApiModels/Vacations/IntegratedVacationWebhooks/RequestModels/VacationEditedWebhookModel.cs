@@ -26,6 +26,15 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         public bool HasManagedVacationDaysBalance { get; set; }
 
         /// <summary>
+        /// Vacation request status depend on acceptance flow configured for this request type 
+        /// and can contain following statuses:
+        /// ForApproval = 1, when request needs acceptance
+        /// Accepted = 2, when request was automatically accepted
+        /// Executed = 4, when request was automatically accepted and executed
+        /// </summary>
+        public VacationStatusEnum Status { get; set; }
+
+        /// <summary>
         /// External id of employee who updated the request
         /// </summary>
         public string ChangingExternalEmployeeId { get; set; }
