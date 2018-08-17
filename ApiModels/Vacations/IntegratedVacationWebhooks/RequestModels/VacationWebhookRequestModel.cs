@@ -1,9 +1,15 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestModels
 {
-    public class VacationEditedWebhookModel
+    public class VacationWebhookRequestModel
     {
+        public WebhookEvent WebhookEvent { get; set; }
+
         /// <summary>
         /// Employee identifier used by integrated system
         /// </summary>
@@ -26,15 +32,6 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         public bool HasManagedVacationDaysBalance { get; set; }
 
         /// <summary>
-        /// Vacation request status depend on acceptance flow configured for this request type 
-        /// and can contain following statuses:
-        /// ForApproval = 1, when request needs acceptance
-        /// Accepted = 2, when request was automatically accepted
-        /// Executed = 4, when request was automatically accepted and executed
-        /// </summary>
-        public VacationStatusEnum Status { get; set; }
-
-        /// <summary>
         /// External id of employee who updated the request
         /// </summary>
         public string ChangingExternalEmployeeId { get; set; }
@@ -50,7 +47,8 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         public DateTime Until { get; set; }
 
         /// <summary>
-        /// Number of days used by this vacation request
+        /// Number of days used by this vacation request (after subtracting all free days from 
+        /// assigned free days calendar id present)
         /// </summary>
         public decimal Duration { get; set; }
 
@@ -68,5 +66,15 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         /// Public description visible for all employees
         /// </summary>
         public string PublicInformation { get; set; }
+
+        /// <summary>
+        /// New status of the request
+        /// </summary>
+        public VacationStatusEnum Status { get; set; }
+
+        /// <summary>
+        /// Time of operation occurrence in emplo
+        /// </summary>
+        public DateTime OperationTime { get; set; }
     }
 }
