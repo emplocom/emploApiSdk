@@ -28,5 +28,10 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         /// that will be synchronized and displayed in Emplo?
         /// </summary>
         public bool HasManagedVacationDaysBalance { get; set; }
+
+        /// <summary>
+        /// Time of operation occurrence in emplo
+        /// </summary>
+        public DateTime OperationTime { get; set; }
     }
 }
