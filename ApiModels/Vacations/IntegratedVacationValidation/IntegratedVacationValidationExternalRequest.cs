@@ -2,7 +2,7 @@
 
 namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationValidation
 {
-    public class VacationValidationRequestModel
+    public class IntegratedVacationValidationExternalRequest
     {
         /// <summary>
         /// Employee identifier used by integrated system

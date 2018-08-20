@@ -2,7 +2,7 @@
 
 namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationValidation
 {
-    public class VacationValidationResponseModel
+    public class IntegratedVacationValidationResponse
     {
         /// <summary>
         /// Vacation request validation result
