@@ -29,7 +29,7 @@ namespace EmploApiSDK.Client
         ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public T SendGet<T>(string url)
         {
-            return Send<T>(string.Empty, url, HttpMethod.Get).Result;
+            return Send<T>(string.Empty, url, HttpMethod.Get).GetAwaiter().GetResult();
         }
 
         ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
@@ -41,7 +41,7 @@ namespace EmploApiSDK.Client
         ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
         public T SendPost<T>(string json, string url)
         {
-            return Send<T>(json, url, HttpMethod.Post).Result;
+            return Send<T>(json, url, HttpMethod.Post).GetAwaiter().GetResult();
         }
 
         ///<exception cref = "EmploApiClientFatalException" > Thrown when a fatal error has occurred during emplo API call </exception>
