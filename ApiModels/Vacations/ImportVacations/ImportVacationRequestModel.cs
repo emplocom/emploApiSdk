@@ -8,5 +8,17 @@ namespace EmploApiSDK.ApiModels.Vacations.ImportVacations
 {
     public class ImportVacationRequestModel
     {
+        public ImportVacationRequestModel()
+        {
+            Rows = new List<VacationDataRow>();
+        }
+
+        public string ImportId { get; set; }
+
+        /// <summary>
+        /// Data to import
+        /// </summary>
+        public List<VacationDataRow> Rows { get; set; }
+
     }
 }

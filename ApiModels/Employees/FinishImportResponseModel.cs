@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EmploApiSDK.ApiModels.Common;
 
 namespace EmploApiSDK.ApiModels.Employees
 {

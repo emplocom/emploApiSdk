@@ -56,6 +56,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Common\ImportStatuses.cs" />
+    <Compile Include="ApiModels\Common\ImportStatusCode.cs" />
+    <Compile Include="ApiModels\Common\ImportValidationSummaryRow.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
@@ -95,7 +98,6 @@
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
-    <Compile Include="Logic\VacationImport\VacationImportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

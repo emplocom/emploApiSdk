@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using EmploApiSDK.ApiModels.Common;
 using EmploApiSDK.ApiModels.Employees;
 using EmploApiSDK.Client;
 using EmploApiSDK.Logger;

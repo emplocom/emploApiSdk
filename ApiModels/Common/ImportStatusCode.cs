@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmploApiSDK.ApiModels.Vacations.ImportVacations
+namespace EmploApiSDK.ApiModels.Common
 {
-    public class VacationDataRow : Dictionary<string, string>
+    public enum ImportStatusCode
     {
-
-
+        Ok,
+        WrongImportId,
+        ImportIsFinished
     }
 }
