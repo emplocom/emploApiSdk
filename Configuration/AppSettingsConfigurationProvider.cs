@@ -17,7 +17,7 @@ namespace EmploApiSDK.Configuration
         private static string EmploLoginKey = "Login";
         private static string EmploPasswordKey = "Password";
         private static string ApiPathKey = "ApiPath";
-        
+        private static string ImportFromFilePath = "ImportFromFilePath";
 
         public static string GetConfigurationValue(string key)
         {
@@ -62,7 +62,10 @@ namespace EmploApiSDK.Configuration
             return GetConfigurationValue(EmploPasswordKey);
         }
 
-
+        public static string GetImportFromFilePath()
+        {
+            return GetConfigurationValue(ImportFromFilePath);
+        }
 
 
 
