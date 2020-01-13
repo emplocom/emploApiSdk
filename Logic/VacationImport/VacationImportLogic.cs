@@ -43,7 +43,6 @@ namespace EmploApiSDK.Logic.VacationImport
                 _logger.WriteLine(String.Format("Sending vacations data to emplo (in chunks in size of {0})",
                     chunkSize));
 
-                // first, send data without superiors
                 foreach (var chunk in Chunk(importVacationRequestModel.Rows, chunkSize))
                 {
                     var importVacationRequestModelChunk = new ImportVacationRequestModel()
@@ -112,7 +111,14 @@ namespace EmploApiSDK.Logic.VacationImport
 
             foreach (var result in importValidationSummary.OperationResults)
             {
-                _logger.WriteLine($"Result code: {result.StatusCode}");
+                if (result.StatusCode == ImportStatuses.Ok)
+                {
+                    _logger.WriteLine($"Result code: {result.StatusCode}");
+                }
+                else
+                {
+                    _logger.WriteLine($"Result code: {result.StatusCode}, Error message: {result.Message}");
+                }
             }
         }
 
