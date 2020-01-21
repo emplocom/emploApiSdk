@@ -18,6 +18,9 @@ namespace EmploApiSDK.Client
         public string ImportVacationsUrl => EmploUrl + "/" + ApiPath + "/Vacations/Import";
         public string FinishImportVacationsUrl => EmploUrl + "/" + ApiPath + "/Vacations/FinishImport";
 
+        public string DeleteIntegratedVacations =>
+            EmploUrl + "/" + ApiPath + "/IntegratedVacations/DeleteIntegratedVacations";
+
 
     }
 }

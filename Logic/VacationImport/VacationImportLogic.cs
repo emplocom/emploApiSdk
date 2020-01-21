@@ -9,6 +9,7 @@ using EmploApiSDK.ApiModels.Employees;
 using EmploApiSDK.ApiModels.Vacations.ImportVacations;
 using EmploApiSDK.Client;
 using EmploApiSDK.Configuration;
+using EmploApiSDK.Extensions;
 using EmploApiSDK.Logger;
 using Newtonsoft.Json;
 
@@ -20,7 +21,7 @@ namespace EmploApiSDK.Logic.VacationImport
         private readonly ApiClient _apiClient;
         private readonly ApiConfiguration _apiConfiguration;
 
-        public VacationImportLogic(ILogger logger)
+        public VacationImportLogic(ILogger logger, ApiClient apiClient = null)
         {
             _logger = logger;
 
@@ -31,19 +32,29 @@ namespace EmploApiSDK.Logic.VacationImport
                 Login = AppSettingsConfigurationProvider.GetEmploLogin(),
                 Password = AppSettingsConfigurationProvider.GetEmploPassword(),
             };
+            
 
-            _apiClient = new ApiClient(_logger, _apiConfiguration);
+            if (apiClient == null)
+            {
+                _apiClient = new ApiClient(_logger, _apiConfiguration);
+            }
+            else
+            {
+                _apiClient = apiClient;
+            }
         }
 
-        public async Task<int> ImportVacations(ImportVacationRequestModel importVacationRequestModel)
+        public async Task<ImportVacationResponseModel> ImportVacations(ImportVacationRequestModel importVacationRequestModel)
         {
+            ImportVacationResponseModel finalResult = new ImportVacationResponseModel();
+
             try
             {
                 int chunkSize = AppSettingsConfigurationProvider.GetChunkSize();
                 _logger.WriteLine(String.Format("Sending vacations data to emplo (in chunks in size of {0})",
                     chunkSize));
 
-                foreach (var chunk in Chunk(importVacationRequestModel.Rows, chunkSize))
+                foreach (var chunk in importVacationRequestModel.Rows.Chunk(chunkSize))
                 {
                     var importVacationRequestModelChunk = new ImportVacationRequestModel()
                     {
@@ -59,9 +70,11 @@ namespace EmploApiSDK.Logic.VacationImport
                         _logger.WriteLine(
                             "Import action returned error status: " + importValidationSummary.ImportStatusCode,
                             LogLevelEnum.Error);
-                        return -1;
+                        return finalResult;
                     }
                     importVacationRequestModel.ImportId = importValidationSummary.ImportId;
+                    finalResult.ImportId = importValidationSummary.ImportId;
+                    finalResult.OperationResults.AddRange(importValidationSummary.OperationResults);
                     SaveImportValidationSummaryLog(importValidationSummary);
                 }
 
@@ -79,26 +92,17 @@ namespace EmploApiSDK.Logic.VacationImport
                         _logger.WriteLine(
                             "FinishImport action returned error status: " + finishImportResponse.ImportStatusCode,
                             LogLevelEnum.Error);
-                        return -1;
+                        return finalResult;
                     }
                 }
 
                 _logger.WriteLine("Import has finished successfully");
-                return 0;
+                return finalResult;
             }
             catch (EmploApiClientFatalException e)
             {
                 _logger.WriteLine(ExceptionLoggingUtils.ExceptionAsString(e), LogLevelEnum.Error);
-                return -1;
-            }
-        }
-
-        private IEnumerable<IEnumerable<T>> Chunk<T>(IEnumerable<T> source, int chunksize)
-        {
-            while (source.Any())
-            {
-                yield return source.Take(chunksize);
-                source = source.Skip(chunksize);
+                return finalResult;
             }
         }
 

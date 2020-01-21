@@ -63,6 +63,8 @@
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\VacationDataRow.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationDelete\DeleteIntegratedVactionsRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationDelete\DeleteIntegratedVactionsResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\IntegratedVacationValidationExternalRequest.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\IntegratedVacationValidationResponse.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\WebhookEvent.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
+    <Compile Include="Logic\IntegratedVacationDelete\IntegratedVacationDeleteLogic.cs" />
     <Compile Include="Logic\VacationImport\VacationImportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -16,4 +16,16 @@ namespace EmploApiSDK.ApiModels.Common
         public bool Created { get; set; }
         public string Message { get; set; }
     }
+
+    public class ImportVacationValidationSummaryRow
+    {
+        public ImportStatuses StatusCode { get; set; }
+        public int? VacationId { get; set; }
+        public List<string> ErrorColumns { get; set; }
+        public List<string> ChangedColumns { get; set; }
+        public bool Created { get; set; }
+        public string Message { get; set; }
+        public string ExternalVacationId { get; set; }
+    }
+
 }

@@ -12,8 +12,11 @@ namespace EmploApiSDK.ApiModels.Vacations.ImportVacations
     {
         public ImportStatusCode ImportStatusCode { get; set; }
         public string ImportId { get; set; }
-        public List<ImportValidationSummaryRow> OperationResults { get; set; }
+        public List<ImportVacationValidationSummaryRow> OperationResults { get; set; }
 
-
+        public ImportVacationResponseModel()
+        {
+            OperationResults = new List<ImportVacationValidationSummaryRow>();
+        }
     }
 }
