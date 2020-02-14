@@ -56,6 +56,15 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\Common\ImportStatuses.cs" />
+    <Compile Include="ApiModels\Common\ImportStatusCode.cs" />
+    <Compile Include="ApiModels\Common\ImportValidationSummaryRow.cs" />
+    <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
+    <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
+    <Compile Include="ApiModels\Vacations\ImportVacations\VacationDataRow.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationDelete\DeleteIntegratedVactionsRequestModel.cs" />
+    <Compile Include="ApiModels\Vacations\IntegratedVacationDelete\DeleteIntegratedVactionsResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\IntegratedVacationValidationExternalRequest.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationValidation\IntegratedVacationValidationResponse.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\WebhookEvent.cs" />
@@ -64,7 +73,10 @@
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\RequestModels\VacationWebhookRequestModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\CreatedObjectResponseEmploModel.cs" />
     <Compile Include="ApiModels\Vacations\IntegratedVacationWebhooks\ResponseModels\ErrorMessageResponseEmploModel.cs" />
+    <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationRequestModel.cs" />
     <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Configuration\AppSettingsConfigurationProvider.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
     <Compile Include="Logger\SerilogLogger.cs" />
@@ -88,6 +100,8 @@
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
+    <Compile Include="Logic\IntegratedVacationDelete\IntegratedVacationDeleteLogic.cs" />
+    <Compile Include="Logic\VacationImport\VacationImportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

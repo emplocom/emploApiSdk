@@ -14,5 +14,13 @@ namespace EmploApiSDK.Client
         public string TokenEndpoint => EmploUrl + "/identity/connect/token";
         public string ImportIntegratedVacationsBalanceDataUrl =>
             EmploUrl + "/" + ApiPath + "/IntegratedVacations/ImportVacationsBalanceData";
+
+        public string ImportVacationsUrl => EmploUrl + "/" + ApiPath + "/Vacations/Import";
+        public string FinishImportVacationsUrl => EmploUrl + "/" + ApiPath + "/Vacations/FinishImport";
+
+        public string DeleteIntegratedVacations =>
+            EmploUrl + "/" + ApiPath + "/IntegratedVacations/DeleteIntegratedVacations";
+
+
     }
 }

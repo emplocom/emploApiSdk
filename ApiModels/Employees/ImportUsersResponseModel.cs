@@ -1,21 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using EmploApiSDK.ApiModels.Common;
 
 namespace EmploApiSDK.ApiModels.Employees
 {
-    public enum ImportStatusCode
-    {
-        Ok,
-        WrongImportId,
-        ImportIsFinished
-    }
-
     public class ImportUsersResponseModel
     {
-        public ImportStatusCode ImportStatusCode { get; set; }
+        public EmploApiSDK.ApiModels.Common.ImportStatusCode ImportStatusCode { get; set; }
         public string ImportId { get; set; }
-        public List<ImportValidationSummaryRow> OperationResults { get; set; }
+        public List<EmploApiSDK.ApiModels.Common.ImportValidationSummaryRow> OperationResults { get; set; }
     }
 
+    [Obsolete("Only for backward compability, DO NOT USE")]
     public enum ImportStatuses
     {
         Ok,
@@ -27,6 +23,7 @@ namespace EmploApiSDK.ApiModels.Employees
         Skipped
     }
 
+    [Obsolete("Only for backward compability, DO NOT USE")]
     public class ImportValidationSummaryRow
     {
         public ImportStatuses StatusCode { get; set; }
@@ -37,4 +34,14 @@ namespace EmploApiSDK.ApiModels.Employees
         public bool Created { get; set; }
         public string Message { get; set; }
     }
+
+    [Obsolete("Only for backward compability, DO NOT USE")]
+    public enum ImportStatusCode
+    {
+        Ok,
+        WrongImportId,
+        ImportIsFinished
+    }
+
+
 }
