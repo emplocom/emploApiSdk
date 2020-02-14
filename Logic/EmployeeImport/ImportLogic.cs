@@ -8,6 +8,8 @@ using EmploApiSDK.ApiModels.Employees;
 using EmploApiSDK.Client;
 using EmploApiSDK.Logger;
 using Newtonsoft.Json;
+using ImportStatusCode = EmploApiSDK.ApiModels.Common.ImportStatusCode;
+using ImportStatuses = EmploApiSDK.ApiModels.Common.ImportStatuses;
 
 namespace EmploApiSDK.Logic.EmployeeImport
 {

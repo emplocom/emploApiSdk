@@ -6,9 +6,9 @@ namespace EmploApiSDK.ApiModels.Employees
 {
     public class ImportUsersResponseModel
     {
-        public ImportStatusCode ImportStatusCode { get; set; }
+        public EmploApiSDK.ApiModels.Common.ImportStatusCode ImportStatusCode { get; set; }
         public string ImportId { get; set; }
-        public List<ImportValidationSummaryRow> OperationResults { get; set; }
+        public List<EmploApiSDK.ApiModels.Common.ImportValidationSummaryRow> OperationResults { get; set; }
     }
 
     [Obsolete("Only for backward compability, DO NOT USE")]
