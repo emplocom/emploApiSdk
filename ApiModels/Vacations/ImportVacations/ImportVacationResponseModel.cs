@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmploApiSDK.ApiModels.Common;
-using EmploApiSDK.ApiModels.Employees;
 
 namespace EmploApiSDK.ApiModels.Vacations.ImportVacations
 {

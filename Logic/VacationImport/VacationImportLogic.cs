@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmploApiSDK.ApiModels.Common;
-using EmploApiSDK.ApiModels.Employees;
 using EmploApiSDK.ApiModels.Vacations.ImportVacations;
 using EmploApiSDK.Client;
 using EmploApiSDK.Configuration;
@@ -65,6 +64,8 @@ namespace EmploApiSDK.Logic.VacationImport
                     var importValidationSummary =
                         await _apiClient.SendPostAsync<ImportVacationResponseModel>(serializedData,
                             _apiConfiguration.ImportVacationsUrl);
+                    finalResult.ImportId = importValidationSummary.ImportId;
+                    finalResult.OperationResults.AddRange(importValidationSummary.OperationResults);
                     if (importValidationSummary.ImportStatusCode != ImportStatusCode.Ok)
                     {
                         _logger.WriteLine(
@@ -72,9 +73,9 @@ namespace EmploApiSDK.Logic.VacationImport
                             LogLevelEnum.Error);
                         return finalResult;
                     }
+
                     importVacationRequestModel.ImportId = importValidationSummary.ImportId;
-                    finalResult.ImportId = importValidationSummary.ImportId;
-                    finalResult.OperationResults.AddRange(importValidationSummary.OperationResults);
+
                     SaveImportValidationSummaryLog(importValidationSummary);
                 }
 
@@ -99,11 +100,12 @@ namespace EmploApiSDK.Logic.VacationImport
                 _logger.WriteLine("Import has finished successfully");
                 return finalResult;
             }
-            catch (EmploApiClientFatalException e)
+            catch (Exception e)
             {
                 _logger.WriteLine(ExceptionLoggingUtils.ExceptionAsString(e), LogLevelEnum.Error);
-                return finalResult;
             }
+
+            return finalResult;
         }
 
         private void SaveImportValidationSummaryLog(ImportVacationResponseModel importValidationSummary)
