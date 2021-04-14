@@ -59,6 +59,8 @@
     <Compile Include="ApiModels\Common\ImportStatuses.cs" />
     <Compile Include="ApiModels\Common\ImportStatusCode.cs" />
     <Compile Include="ApiModels\Common\ImportValidationSummaryRow.cs" />
+    <Compile Include="ApiModels\Vacations\Actions\VacationCommentResponse.cs" />
+    <Compile Include="ApiModels\Vacations\Actions\VacationCommentRequest.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationRequestModel.cs" />
     <Compile Include="Client\ApiClient.cs" />
     <Compile Include="Configuration\AppSettingsConfigurationProvider.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
     <Compile Include="Logic\IntegratedVacationDelete\IntegratedVacationDeleteLogic.cs" />
+    <Compile Include="Logic\VacationActions\VacationsLogic.cs" />
     <Compile Include="Logic\VacationImport\VacationImportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -13,6 +13,7 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         /// </summary>
         public string ExternalVacationId { get; set; }
 
+        public int EmploVacationId { get; set; }
         /// <summary>
         /// Vacation type identifier used by external system
         /// </summary>

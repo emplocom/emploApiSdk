@@ -39,5 +39,7 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationValidation
         /// Is this an On Demand request
         /// </summary>
         public bool IsOnDemand { get; set; }
+
+        public string ExternalVacationRequestId { get; set; }
     }
 }

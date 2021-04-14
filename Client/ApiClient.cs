@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using EmploApiSDK.Logger;
@@ -54,6 +56,7 @@ namespace EmploApiSDK.Client
         private async Task<T> Send<T>(string json, string url, HttpMethod httpMethod)
         {
             EnsureValidToken();
+
 
             HttpResponseMessage response = null;
             try

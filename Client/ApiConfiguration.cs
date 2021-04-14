@@ -21,6 +21,8 @@ namespace EmploApiSDK.Client
         public string DeleteIntegratedVacations =>
             EmploUrl + "/" + ApiPath + "/IntegratedVacations/DeleteIntegratedVacations";
 
+        public string PostCommentToVacationUrl => EmploUrl + "/" + ApiPath + "/Vacations/{Id}/Comments";
+        public string RejectVacationUrl => EmploUrl + "/" + ApiPath + "/Vacations/{Id}/Reject";
 
     }
 }
