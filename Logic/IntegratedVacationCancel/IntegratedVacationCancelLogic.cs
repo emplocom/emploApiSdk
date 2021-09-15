@@ -65,6 +65,16 @@ namespace EmploApiSDK.Logic.IntegratedVacationCancel
                     {
                         _logger.WriteLine($"Canceling vacation requests with ids {JsonConvert.SerializeObject(vacationsIds)} failed");
                     }
+
+                    finalResult.Message += deleteIntegratedVactionsResponseModel.Message;
+                    if (finalResult.Status == CancelIntegrationVacationStatusEnum.Success)
+                    {
+                        finalResult.Status = deleteIntegratedVactionsResponseModel.Status;
+                    }
+                    finalResult.VacationsCancellationStatuses =
+                        finalResult.VacationsCancellationStatuses
+                        .Concat(deleteIntegratedVactionsResponseModel.VacationsCancellationStatuses)
+                        .ToDictionary(k => k.Key, v => v.Value);
                 }
                 catch (EmploApiClientFatalException e)
                 {
