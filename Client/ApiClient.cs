@@ -202,7 +202,7 @@ namespace EmploApiSDK.Client
 
             if (_token.AccessToken == null)
             {
-                _logger.WriteLine("Login error:" + _token.Json, LogLevelEnum.Error);
+                _logger.WriteLine($"Login error< {_token.HttpErrorStatusCode} - {_token.Error} - {_token.HttpErrorReason} >END OF ERROR" , LogLevelEnum.Error);
                 throw new EmploApiClientFatalException($"A fatal error has occurred during emplo API LogIn.");
             }
             else
