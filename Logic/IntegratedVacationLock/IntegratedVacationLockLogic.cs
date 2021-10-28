@@ -57,7 +57,7 @@ namespace EmploApiSDK.Logic.IntegratedVacationLock
 
                     if (!lockIntegratedVactionsResponseModel.Success)
                     {
-                        _logger.WriteLine($"Canceling vacation requests with ids {JsonConvert.SerializeObject(vacationsIds)} failed");
+                        _logger.WriteLine($"Canceling vacation requests with ids {JsonConvert.SerializeObject(vacationsIds)} failed: {lockIntegratedVactionsResponseModel.Message}");
                     }
 
                     finalResult &= lockIntegratedVactionsResponseModel.Success;
