@@ -24,5 +24,8 @@ namespace EmploApiSDK.Client
         public string PostCommentToVacationUrl => EmploUrl + "/" + ApiPath + "/Vacations/{Id}/Comments";
         public string RejectVacationUrl => EmploUrl + "/" + ApiPath + "/Vacations/{Id}/Reject";
 
+        public string DismissBlockedUsersUrl => EmploUrl + "/" + ApiPath + "/Users/DismissBlockedUsers";
+        public string PermanentRemoveBlockedUsersUrl => EmploUrl + "/" + ApiPath + "/Users/PermanentRemoveBlockedUsers";
+
     }
 }

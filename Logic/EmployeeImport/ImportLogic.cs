@@ -111,6 +111,15 @@ namespace EmploApiSDK.Logic.EmployeeImport
                                 }
                             }
                         }
+
+                        if (bool.TryParse(ConfigurationManager.AppSettings["DismissBlockedUsers"], out var dismissBlockedUser) && dismissBlockedUser)
+                        {
+                            var actionResult = await DismissBlockedUsers(importUsersRequestModel.ImportId);
+                            if (actionResult != 0)
+                            {
+                                return actionResult;
+                            }
+                        }
                     }
                 }
 
@@ -120,6 +129,61 @@ namespace EmploApiSDK.Logic.EmployeeImport
             catch (EmploApiClientFatalException e)
             {
                 _logger.WriteLine(ExceptionLoggingUtils.ExceptionAsString(e), LogLevelEnum.Error);
+                return -1;
+            }
+        }
+
+        private async Task<int> DismissBlockedUsers(string importId)
+        {
+            DismissBlockedUsersRequestModel requestModel = new DismissBlockedUsersRequestModel(importId);
+
+            var serializedData = JsonConvert.SerializeObject(requestModel);
+            var dismissBlockedUsersReponse =
+                await _apiClient.SendPostAsync<DismissBlockedUsersResponseModel>(serializedData,
+                    _apiConfiguration.DismissBlockedUsersUrl);
+
+            if (dismissBlockedUsersReponse.Rows.All(d => d.IsSuccessfull))
+            {
+                if (bool.TryParse(ConfigurationManager.AppSettings["PermanentRemoveBlockedUsers"], out var permanentRemoveBlockedUsers) && permanentRemoveBlockedUsers)
+                {
+                    var actionResult = await PermanentRemoveBlockedUsers(importId);
+                    if (actionResult != 0)
+                    {
+                        return actionResult;
+                    }
+                }
+
+                _logger.WriteLine("Dismiss blocked users has finished successfully");
+                return 0;
+            }
+            else
+            {
+                _logger.WriteLine(
+                            "Dismiss blocked users finishes with errors: " + string.Join(Environment.NewLine, dismissBlockedUsersReponse.Rows.Select(r => r.Message)),
+                            LogLevelEnum.Error);
+                return -1;
+            }
+        }
+
+        private async Task<int> PermanentRemoveBlockedUsers(string importId)
+        {
+            PermanentRemoveBlockedUsersRequestModel requestModel = new PermanentRemoveBlockedUsersRequestModel(importId);
+
+            var serializedData = JsonConvert.SerializeObject(requestModel);
+            var permanentRemoveBlockedUsersResponse =
+                await _apiClient.SendPostAsync<PermanentRemoveBlockedUsersResponseModel>(serializedData,
+                    _apiConfiguration.DismissBlockedUsersUrl);
+
+            if (permanentRemoveBlockedUsersResponse.Rows.All(d => d.IsSuccessfull))
+            {
+                _logger.WriteLine("Parmanent remove blocked users has finished successfully");
+                return 0;
+            }
+            else
+            {
+                _logger.WriteLine(
+                            "Parmanent remove blocked users finishes with errors: " + string.Join(Environment.NewLine, permanentRemoveBlockedUsersResponse.Rows.Select(r => r.Message)),
+                            LogLevelEnum.Error);
                 return -1;
             }
         }
