@@ -59,6 +59,8 @@
     <Compile Include="ApiModels\Common\ImportStatuses.cs" />
     <Compile Include="ApiModels\Common\ImportStatusCode.cs" />
     <Compile Include="ApiModels\Common\ImportValidationSummaryRow.cs" />
+    <Compile Include="ApiModels\Employees\DismissBlockedUsersResponseModel.cs" />
+    <Compile Include="ApiModels\Employees\PermanentRemoveBlockedUsersResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentResponse.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentRequest.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
