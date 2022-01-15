@@ -61,6 +61,7 @@
     <Compile Include="ApiModels\Common\ImportValidationSummaryRow.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentResponse.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentRequest.cs" />
+    <Compile Include="ApiModels\Vacations\EmploVacations\EmploVacationsDataResponseModelListing.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
     <Compile Include="Logger\SerilogLogger.cs" />
+    <Compile Include="Logic\EmploVacationsLogic\EmploVacationLogic.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMapping.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingElement.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingSection.cs" />
