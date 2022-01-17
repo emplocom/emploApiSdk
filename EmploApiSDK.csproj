@@ -109,6 +109,7 @@
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
+    <Compile Include="Logic\EmployeeMappings\EmployeeMappingsLogic.cs" />
     <Compile Include="Logic\IntegratedVacationCancel\IntegratedVacationCancelLogic.cs" />
     <Compile Include="Logic\IntegratedVacationDelete\IntegratedVacationDeleteLogic.cs" />
     <Compile Include="Logic\IntegratedVacationLock\IntegratedVacationLockLogic.cs" />
