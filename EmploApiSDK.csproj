@@ -64,6 +64,7 @@
     <Compile Include="ApiModels\Employees\PermanentRemoveBlockedUsersResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentResponse.cs" />
     <Compile Include="ApiModels\Vacations\Actions\VacationCommentRequest.cs" />
+    <Compile Include="ApiModels\Vacations\EmploVacations\EmploVacationsDataResponseModelListing.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationRequestModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\FinishImportVacationResponseModel.cs" />
     <Compile Include="ApiModels\Vacations\ImportVacations\ImportVacationResponseModel.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Logger\EmploApiClientException.cs" />
     <Compile Include="Logger\LogLevelEnum.cs" />
     <Compile Include="Logger\SerilogLogger.cs" />
+    <Compile Include="Logic\EmploVacationsLogic\EmploVacationLogic.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMapping.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingElement.cs" />
     <Compile Include="Logic\EmployeeImport\AttributeMappingSection.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="ApiModels\Employees\ImportUsersResponseModel.cs" />
     <Compile Include="ApiModels\Employees\UpdateUnitResult.cs" />
     <Compile Include="ApiModels\Employees\UserDataRow.cs" />
+    <Compile Include="Logic\EmployeeMappings\EmployeeMappingsLogic.cs" />
     <Compile Include="Logic\IntegratedVacationCancel\IntegratedVacationCancelLogic.cs" />
     <Compile Include="Logic\IntegratedVacationDelete\IntegratedVacationDeleteLogic.cs" />
     <Compile Include="Logic\IntegratedVacationLock\IntegratedVacationLockLogic.cs" />
