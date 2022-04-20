@@ -111,6 +111,15 @@ namespace EmploApiSDK.Logic.EmployeeImport
                                 }
                             }
                         }
+
+                        if (bool.TryParse(ConfigurationManager.AppSettings["DismissBlockedUsers"], out var dismissBlockedUser) && dismissBlockedUser)
+                        {
+                            var actionResult = await DismissBlockedUsers(importUsersRequestModel.ImportId);
+                            if (actionResult != 0)
+                            {
+                                return actionResult;
+                            }
+                        }
                     }
                 }
 
@@ -122,6 +131,72 @@ namespace EmploApiSDK.Logic.EmployeeImport
                 _logger.WriteLine(ExceptionLoggingUtils.ExceptionAsString(e), LogLevelEnum.Error);
                 return -1;
             }
+        }
+
+        private async Task<int> DismissBlockedUsers(string importId)
+        {
+            var serializedData = JsonConvert.SerializeObject(importId);
+            var dismissBlockedUsersReponse =
+                await _apiClient.SendPostAsync<DismissBlockedUsersResponseModel>(serializedData,
+                    _apiConfiguration.DismissBlockedUsersUrl);
+
+            if (dismissBlockedUsersReponse.Rows.Any(d => d.Message != null && d.Message.Any()))
+            {
+                foreach (var responseRow in dismissBlockedUsersReponse.Rows)
+                {
+                    if (responseRow.IsSuccessfull)
+                    {
+                        _logger.WriteLine($"Dismiss user {responseRow.EmployeeId} has been skipped: {responseRow.Message}");
+                    }
+                    else
+                    {
+                        _logger.WriteLine($"Dismiss user {responseRow.EmployeeId} has finished with error: {responseRow.Message}");
+                    }
+                }
+            }
+            else
+            {
+                _logger.WriteLine("Dismiss blocked users has finished successfully");
+            }
+            if (bool.TryParse(ConfigurationManager.AppSettings["PermanentRemoveBlockedUsers"], out var permanentRemoveBlockedUsers) && permanentRemoveBlockedUsers)
+            {
+                var actionResult = await PermanentRemoveBlockedUsers(importId);
+                if (actionResult != 0)
+                {
+                    return actionResult;
+                }
+            }
+
+            return 0;
+        }
+
+        private async Task<int> PermanentRemoveBlockedUsers(string importId)
+        {
+            var serializedData = JsonConvert.SerializeObject(importId);
+            var permanentRemoveBlockedUsersResponse =
+                await _apiClient.SendPostAsync<PermanentRemoveBlockedUsersResponseModel>(serializedData,
+                    _apiConfiguration.PermanentRemoveBlockedUsersUrl);
+
+            if (permanentRemoveBlockedUsersResponse.Rows.Any(d => d.Message != null && d.Message.Any()))
+            {
+                foreach (var responseRow in permanentRemoveBlockedUsersResponse.Rows)
+                {
+                    if (responseRow.IsSuccessfull)
+                    {
+                        _logger.WriteLine($"Permanent remove user {responseRow.EmployeeId} has been skipped: {responseRow.Message}");
+                    }
+                    else
+                    {
+                        _logger.WriteLine($"Permanent remove user {responseRow.EmployeeId} has finished with error: {responseRow.Message}");
+                    }
+                }
+            }
+            else
+            {
+                _logger.WriteLine("Permanent remove blocked users has finished successfully");
+            }
+
+            return 0;
         }
 
         private IEnumerable<IEnumerable<T>> Chunk<T>(IEnumerable<T> source, int chunksize)

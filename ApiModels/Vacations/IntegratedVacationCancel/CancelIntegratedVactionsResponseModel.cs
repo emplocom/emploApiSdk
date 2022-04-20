@@ -10,5 +10,6 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationCancel
     {
         public string Message { get; set; }
         public CancelIntegrationVacationStatusEnum Status { get; set; }
+        public Dictionary<int, CancelIntegrationVacationStatusEnum> VacationsCancellationStatuses { get; set; } = new Dictionary<int, CancelIntegrationVacationStatusEnum>();
     }
 }

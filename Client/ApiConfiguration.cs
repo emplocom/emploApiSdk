@@ -25,5 +25,8 @@ namespace EmploApiSDK.Client
         public string RejectVacationUrl => EmploUrl + "/" + ApiPath + "/Vacations/{Id}/Reject";
         public string GetEmployeeVacations => EmploUrl + "/" + ApiPath + "/Vacations/IntegratedVacationsList?externalEmployeeId={employeeId}&integratedSystemId={integratedSystemId}&page={page}&startDate={startDate}";
         public string SynchronizeEmployeeMappings => EmploUrl + "/" + ApiPath + "/Special/SynchronizeEmployees?integratedSystemId={integratedSystemId}";
+
+        public string DismissBlockedUsersUrl => EmploUrl + "/" + ApiPath + "/Users/DismissBlockedUsers";
+        public string PermanentRemoveBlockedUsersUrl => EmploUrl + "/" + ApiPath + "/Users/PermanentRemoveBlockedUsers";
     }
 }
