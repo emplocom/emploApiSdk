@@ -79,6 +79,15 @@ namespace EmploApiSDK.ApiModels.Vacations.IntegratedVacationWebhooks.RequestMode
         /// </summary>
         public DateTime OperationTime { get; set; }
 
+
+        public void FixedAllDaysDuration()
+        {
+
+            DateTime aDay = Since.Date;
+            DateTime lastDay = Until.Date;
+
+            Duration = (lastDay - aDay).Days + 1;
+        }
         
     }
 }
